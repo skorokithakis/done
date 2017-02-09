@@ -41,7 +41,7 @@ end
 function __done_ended --on-event fish_prompt
 	if test $CMD_DURATION
 		# Store duration of last command
-		set duration (echo "$CMD_DURATION 1000" | awk '{printf "%.3fs", $1 / $2}')
+		set duration (echo "$CMD_DURATION" | humanize_duration)
 		set notify_duration 10000
 
 		if begin
@@ -49,7 +49,7 @@ function __done_ended --on-event fish_prompt
 				and test $__done_initial_window_id != (__done_get_window_id)  # terminal or window not in foreground
 			end
 
-			set -l title "Finished in $duration"
+			set -l title "Finished in $duration."
 			set -l message "$history[1]"
 
 			if type -q terminal-notifier  # https://github.com/julienXX/terminal-notifier
